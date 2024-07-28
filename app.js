@@ -1,20 +1,19 @@
 import puppeteer from "puppeteer";
 import 'dotenv/config'
 
-const getData = async () => {
+const getList = async () => {
     
   // Start a Puppeteer session with:
   // - a visible browser (`headless: false` - easier to debug because you'll see the browser in action)
   // - no default viewport (`defaultViewport: null` - website page will in full width and height)
 
     const browser = await puppeteer.launch({
-        "headless": false,
-        // "args": ["--fast-start", "--disable-extensions", "--no-sandbox"],
+        "headless": true,
+        "args": ["--fast-start", "--disable-extensions", "--no-sandbox"],
         "ignoreHTTPSErrors": true,
         // "headless": false,
         // defaultViewport: null,
     });
-    
 
     // Open a new page
     const page = await browser.newPage();
@@ -38,10 +37,12 @@ const getData = async () => {
     
     console.log(`Extracting Data...`)
     const datas = await page.evaluate(() => {
-        const doc = document.querySelectorAll('tbody.list-item td.collection-as-table b a');
+        const doc = document.querySelectorAll('tbody.list-item td.collection-as-table a');
+       
         const size = doc.length
         let tickets = [];
 
+        // const status = document.querySelectorAll(`tbody[data-index="${11}"] .collection-as-table .value span`)[1].innerText
         // let array = doc[1].innerText;
         for (let index = 0; index <= size - 1; index++) {
             tickets.push(doc[index].innerText)
@@ -53,4 +54,4 @@ const getData = async () => {
     await browser.close();
 };
 
-getData();
+getList();
