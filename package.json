@@ -13,6 +13,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "google-spreadsheet": "^4.1.2",
+    "prompt-sync": "^4.2.0",
     "puppeteer": "^22.14.0"
   },
   "type": "module"
